@@ -20,4 +20,21 @@ public class Room {
 
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings;
+
+    @Column(nullable = false, length = 50, unique = true)
+    private String room_name;
+
+    @Column(length = 256)
+    private String location_description;
+
+    @Column(nullable = false, length = 100)
+    private Integer number_of_seats;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean projector;
+
+    @Column(length = 100)
+    private String phone_number;
+
+
 }
