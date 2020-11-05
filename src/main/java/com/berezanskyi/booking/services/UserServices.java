@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserServices {
 
-
     @Autowired
     private UserRepository userRepository;
+
 
     @Transactional
     public Optional<User> findUserByLogin(String login){
@@ -31,12 +34,30 @@ public class UserServices {
         }
     }
 
-    public boolean deleteUserById(long id){
-        if (userRepository.findById(id).isPresent()){
-            userRepository.deleteById(id);
+    @Transactional
+    public boolean editUser(String login, User user){
+        Optional<User> userOptional = userRepository.findByLogin(login);
+
+        if (userOptional.isPresent()){
+            user.setId(userOptional.get().getId());
+            userRepository.save(user);
             return true;
-        }else {
+        } else {
             return false;
         }
+
     }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+
+    private boolean userIsPresent(String login){
+        return userRepository.findByLogin(login).isPresent();
+    }
+
+
+
+
 }

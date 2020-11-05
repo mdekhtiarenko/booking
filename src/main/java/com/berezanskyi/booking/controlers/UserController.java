@@ -1,11 +1,15 @@
 package com.berezanskyi.booking.controlers;
 
+import com.berezanskyi.booking.converter.UserConverter;
+import com.berezanskyi.booking.converter.UserDtoConverter;
+import com.berezanskyi.booking.dtos.CreateUserDto;
+import com.berezanskyi.booking.dtos.UserDto;
+import com.berezanskyi.booking.entity.User;
 import com.berezanskyi.booking.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -15,16 +19,27 @@ public class UserController {
     @Autowired
     private UserServices userServices;
 
+    @Autowired
+    private UserConverter userConverter;
+
+    @Autowired
+    private UserDtoConverter userDtoConverter;
+
+    @PutMapping("/edit/{login}")
+    public boolean editUser(@PathVariable String login, @RequestBody CreateUserDto createUserDto){
+        return userServices.editUser(login, userConverter.convert(createUserDto));
+    }
 
     @DeleteMapping("/delete/{login}")
     public boolean deleteUserByLogin(@PathVariable String login) {
         return userServices.deleteUserByLogin(login);
     }
 
-    @DeleteMapping("/deleteId/{id}")
-    public boolean deleteUserById(@PathVariable long id){
-        return userServices.deleteUserById(id);
+    @GetMapping
+    public List<UserDto> getAllUsers(){
+        return userDtoConverter.convertAll(userServices.getAllUsers());
     }
+
 
 
 }
