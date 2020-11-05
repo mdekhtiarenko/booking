@@ -17,8 +17,8 @@ public class UserController {
 
 
     @DeleteMapping("/delete/{login}")
-    public void deleteUserByLogin1(@PathVariable String login) {
-        userServices.deleteUserByLogin(login);
+    public boolean deleteUserByLogin1(@PathVariable String login) {
+        return userServices.deleteUserByLogin(login);
     }
 
 
