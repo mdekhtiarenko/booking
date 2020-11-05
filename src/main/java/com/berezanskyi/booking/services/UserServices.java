@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public class UserServices {
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -26,6 +27,15 @@ public class UserServices {
             userRepository.deleteByLogin(login);
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public boolean deleteUserById(long id){
+        if (userRepository.findById(id).isPresent()){
+            userRepository.deleteById(id);
+            return true;
+        }else {
             return false;
         }
     }

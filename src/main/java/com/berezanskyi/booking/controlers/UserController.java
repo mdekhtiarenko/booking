@@ -17,8 +17,13 @@ public class UserController {
 
 
     @DeleteMapping("/delete/{login}")
-    public boolean deleteUserByLogin1(@PathVariable String login) {
+    public boolean deleteUserByLogin(@PathVariable String login) {
         return userServices.deleteUserByLogin(login);
+    }
+
+    @DeleteMapping("/deleteId/{id}")
+    public boolean deleteUserById(@PathVariable long id){
+        return userServices.deleteUserById(id);
     }
 
 
