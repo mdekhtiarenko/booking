@@ -13,6 +13,7 @@ public class UserConverter implements Converter<CreateUserDto, User>{
                 .firstName(createUserDto.getFirstName())
                 .surname(createUserDto.getSurname())
                 .login(createUserDto.getLogin())
+                .password(createUserDto.getPassword())
                 .build();
     }
 }

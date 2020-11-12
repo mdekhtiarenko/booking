@@ -13,4 +13,5 @@ public class CreateUserDto {
     private String firstName;
     private String surname;
     private String login;
+    private String password;
 }

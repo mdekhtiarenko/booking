@@ -26,6 +26,17 @@ public class UserServices {
     private MyBeanUntil myBeanUntil;
 
 
+
+    public boolean createUser(User user){
+        if (userIsPresent(user.getLogin())){
+            return false;
+        } else {
+            userRepository.save(user);
+            return true;
+        }
+    }
+
+
     @Transactional
     public Optional<User> findUserByLogin(String login) {
         return userRepository.findByLogin(login);
@@ -45,13 +56,11 @@ public class UserServices {
         Optional<User> userOptional = userRepository.findByLogin(login);
 
         if (userOptional.isPresent()) {
-
-            User user1 = objectMapper.convertValue(userFieldsToEdit, User.class);
-            User user2 = userOptional.get();
-
+            User userWithEditsFields = objectMapper.convertValue(userFieldsToEdit, User.class);
+            User userEdits = userOptional.get();
             try {
-                myBeanUntil.copyProperties(user2, user1);
-                userRepository.save(user2);
+                myBeanUntil.copyProperties(userEdits, userWithEditsFields);
+                userRepository.save(userEdits);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
