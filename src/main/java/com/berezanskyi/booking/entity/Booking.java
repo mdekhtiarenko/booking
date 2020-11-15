@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Data
 @Entity
@@ -24,5 +25,12 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
+
+    @Column(nullable = false)
+    private Calendar startDateTime;
+    @Column(nullable = false)
+    private Calendar stopDateTime;
+
+
 
 }

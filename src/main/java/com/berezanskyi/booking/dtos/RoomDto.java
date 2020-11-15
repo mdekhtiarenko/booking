@@ -11,8 +11,8 @@ import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RoomDto {
     private Long id;
     private List<Booking> bookings;

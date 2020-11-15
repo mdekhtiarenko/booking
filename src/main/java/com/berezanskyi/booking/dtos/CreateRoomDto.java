@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateRoomDto {
-    private String room_name;
+    private String roomName;
     private String location_description;
     private Integer number_of_seats;
     private Boolean projector;

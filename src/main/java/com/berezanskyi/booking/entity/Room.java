@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class Room {
     private List<Booking> bookings;
 
     @Column(nullable = false, length = 50, unique = true)
-    private String room_name;
+    private String roomName;
 
     @Column(length = 256)
     private String location_description;

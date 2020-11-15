@@ -36,7 +36,6 @@ public class UserServices {
         }
     }
 
-
     @Transactional
     public Optional<User> findUserByLogin(String login) {
         return userRepository.findByLogin(login);
@@ -74,7 +73,6 @@ public class UserServices {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
 
     private boolean userIsPresent(String login) {
         return userRepository.findByLogin(login).isPresent();

@@ -9,7 +9,7 @@ public class RoomConverter implements Converter<CreateRoomDto, Room> {
     @Override
     public Room convert(CreateRoomDto createRoomDto) {
         return Room.builder()
-                .room_name(createRoomDto.getRoom_name())
+                .roomName(createRoomDto.getRoomName())
                 .location_description(createRoomDto.getLocation_description())
                 .number_of_seats(createRoomDto.getNumber_of_seats())
                 .projector(createRoomDto.getProjector())

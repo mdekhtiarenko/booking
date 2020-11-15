@@ -25,21 +25,24 @@ public class RoomServices {
     private MyBeanUntil myBeanUntil;
 
 
-/*    public boolean createRoom(Room room){
-        if (roomIsPresent(room.getRoom_name())){
+    public boolean createRoom(Room room) {
+        if (roomIsPresent(room.getRoomName())) {
             return false;
         } else {
             roomRepository.save(room);
             return true;
         }
-    }*/
+    }
 
-/*
+    @Transactional
+    public Optional<Room> findRoomByRoomName(String room_name) {
+        return roomRepository.findByRoomName(room_name);
+    }
 
     @Transactional
     public boolean deleteRoomByRoomName(String roomName) {
         if (roomIsPresent(roomName)) {
-            roomRepository.deleteByRoom_Name(roomName);
+            roomRepository.deleteByRoomName(roomName);
             return true;
         } else {
             return false;
@@ -47,13 +50,13 @@ public class RoomServices {
     }
 
     public boolean editRoom(String roomName, Map<String, String> roomFieldsToEdit) {
-        Optional<Room> roomOptional = roomRepository.findByRoom_Name(roomName);
+        Optional<Room> roomOptional = roomRepository.findByRoomName(roomName);
 
         if (roomOptional.isPresent()) {
             Room roomWithEditsFields = objectMapper.convertValue(roomFieldsToEdit, Room.class);
             Room roomEdits = roomOptional.get();
             try {
-                myBeanUntil.copyProperties(roomEdits, roomWithEditsFields);
+                myBeanUntil.copyProperties(roomEdits, roomFieldsToEdit);
                 roomRepository.save(roomEdits);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -62,20 +65,14 @@ public class RoomServices {
         } else {
             return false;
         }
-
-    }*/
-
-    @Transactional
-    public Optional<Room> findRoomByRoomName(String roomName) {
-        return roomRepository.findByRoom_Name(roomName);
     }
 
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
     }
 
-/*    private boolean roomIsPresent(String roomName) {
-        return roomRepository.findByRoom_Name(roomName).isPresent();
-    }*/
+    private boolean roomIsPresent(String name) {
+        return roomRepository.findByRoomName(name).isPresent();
+    }
 
 }
