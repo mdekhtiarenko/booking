@@ -5,7 +5,7 @@ import com.berezanskyi.booking.converter.RoomDtoConverter;
 import com.berezanskyi.booking.dtos.CreateRoomDto;
 import com.berezanskyi.booking.dtos.RoomDto;
 import com.berezanskyi.booking.entity.Room;
-import com.berezanskyi.booking.services.RoomServices;
+import com.berezanskyi.booking.services.iml.DefaultRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class RoomController {
 
     @Autowired
-    private RoomServices roomServices;
+    private DefaultRoomService defaultRoomService;
 
     @Autowired
     private RoomConverter roomConverter;
@@ -30,26 +30,26 @@ public class RoomController {
 
     @PostMapping
     public boolean createRoom(@RequestBody CreateRoomDto createRoomDto){
-        return roomServices.createRoom(roomConverter.convert(createRoomDto));
+        return defaultRoomService.createRoom(roomConverter.convert(createRoomDto));
     }
 
-    @PatchMapping("/{room_name}")
+/*    @PatchMapping("/{room_name}")
     public boolean editRoom(@PathVariable String room_name, @RequestBody Map<String, String> roomFieldsToEdit)  {
-        return roomServices.editRoom(room_name, roomFieldsToEdit);
-    }
+        return defaultRoomService.editRoom(room_name, roomFieldsToEdit);
+    }*/
 
     @DeleteMapping("/{room_name}")
     public boolean deleteRoomByRoomName(@PathVariable String room_name) {
-        return roomServices.deleteRoomByRoomName(room_name);
+        return defaultRoomService.deleteRoomByRoomName(room_name);
     }
 
     @GetMapping
     public List<RoomDto> getAllUsers() {
-        return roomDtoConverter.convertAll(roomServices.getAllRooms());
+        return roomDtoConverter.convertAll(defaultRoomService.getAllRooms());
     }
 
     @GetMapping("/{name}")
     public Optional<Room> getUserByName(@PathVariable String name) {
-        return roomServices.findRoomByRoomName(name);
+        return defaultRoomService.findRoomByRoomName(name);
     }
 }

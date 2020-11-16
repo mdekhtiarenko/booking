@@ -20,9 +20,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "user")
-    private List<Booking> bookings;
-
     @Column(nullable = false, length = 50)
     private String firstName;
 
@@ -36,6 +33,8 @@ public class User {
     @Size(min = 6, max = 100)
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;
 
 
 

@@ -28,6 +28,7 @@ public class Booking {
 
     @Column(nullable = false)
     private Calendar startDateTime;
+
     @Column(nullable = false)
     private Calendar stopDateTime;
 

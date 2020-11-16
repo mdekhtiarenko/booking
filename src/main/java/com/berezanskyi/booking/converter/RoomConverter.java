@@ -10,10 +10,10 @@ public class RoomConverter implements Converter<CreateRoomDto, Room> {
     public Room convert(CreateRoomDto createRoomDto) {
         return Room.builder()
                 .roomName(createRoomDto.getRoomName())
-                .location_description(createRoomDto.getLocation_description())
-                .number_of_seats(createRoomDto.getNumber_of_seats())
+                .locationDescription(createRoomDto.getLocation_description())
+                .numberOfSeats(createRoomDto.getNumber_of_seats())
                 .projector(createRoomDto.getProjector())
-                .phone_number(createRoomDto.getPhone_number())
+                .phoneNumber(createRoomDto.getPhone_number())
                 .build();
     }
 }

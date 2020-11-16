@@ -11,11 +11,11 @@ public class RoomDtoConverter implements Converter<Room, RoomDto>{
         return RoomDto.builder()
                 .id(room.getId())
                 .room_name(room.getRoomName())
-                .location_description(room.getLocation_description())
+                .location_description(room.getLocationDescription())
                 .bookings(room.getBookings())
-                .number_of_seats(room.getNumber_of_seats())
+                .number_of_seats(room.getNumberOfSeats())
                 .projector(room.getProjector())
-                .phone_number(room.getPhone_number())
+                .phone_number(room.getPhoneNumber())
                 .build();
     }
 }

@@ -1,4 +1,4 @@
-package com.berezanskyi.booking.services;
+package com.berezanskyi.booking.services.iml;
 
 import com.berezanskyi.booking.entity.Room;
 import com.berezanskyi.booking.repositories.RoomRepository;
@@ -13,16 +13,10 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class RoomServices {
+public class DefaultRoomService {
 
     @Autowired
     private RoomRepository roomRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private MyBeanUntil myBeanUntil;
 
 
     public boolean createRoom(Room room) {
@@ -49,7 +43,7 @@ public class RoomServices {
         }
     }
 
-    public boolean editRoom(String roomName, Map<String, String> roomFieldsToEdit) {
+/*    public boolean editRoom(String roomName, Map<String, String> roomFieldsToEdit) {
         Optional<Room> roomOptional = roomRepository.findByRoomName(roomName);
 
         if (roomOptional.isPresent()) {
@@ -63,9 +57,10 @@ public class RoomServices {
             }
             return true;
         } else {
-            return false;
+
+
         }
-    }
+    }*/
 
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
