@@ -1,73 +1,61 @@
 package com.berezanskyi.booking.services.iml;
 
 import com.berezanskyi.booking.entity.Room;
+import com.berezanskyi.booking.exeption.BookingException;
 import com.berezanskyi.booking.repositories.RoomRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.berezanskyi.booking.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class DefaultRoomService {
+public class DefaultRoomService implements RoomService {
 
     @Autowired
     private RoomRepository roomRepository;
 
 
-    public boolean createRoom(Room room) {
-        if (roomIsPresent(room.getRoomName())) {
-            return false;
-        } else {
-            roomRepository.save(room);
-            return true;
+    @Override
+    public void createRoom(Room room)  {
+        if (findRoomByName(room.getRoomName()).isPresent()){
+            throw new BookingException("Room with roomName " + room.getRoomName() + " already exists", HttpStatus.BAD_REQUEST);
         }
+        roomRepository.save(room);
     }
 
+    @Override
+    public void editRoom(String roomName, Room editRoom) {
+        Room room = roomRepository.findByRoomName(roomName)
+                .orElseThrow(() -> new BookingException("Room with roomName " + roomName + " does not exists", HttpStatus.NOT_FOUND));
+        editRoom.setId(room.getId());
+        roomRepository.save(editRoom);
+    }
+
+    @Override
     @Transactional
-    public Optional<Room> findRoomByRoomName(String room_name) {
-        return roomRepository.findByRoomName(room_name);
+    public void deleteRoomByName(String roomName) {
+        if (!roomRepository.findByRoomName(roomName).isPresent()){
+            throw new BookingException("Room with roomName " + roomName + " does not exists", HttpStatus.NOT_FOUND);
+        }
+        roomRepository.deleteByRoomName(roomName);
     }
 
-    @Transactional
-    public boolean deleteRoomByRoomName(String roomName) {
-        if (roomIsPresent(roomName)) {
-            roomRepository.deleteByRoomName(roomName);
-            return true;
-        } else {
-            return false;
-        }
+    @Override
+    public Optional<Room> findRoomByName(String roomName) {
+        return roomRepository.findByRoomName(roomName);
     }
 
-/*    public boolean editRoom(String roomName, Map<String, String> roomFieldsToEdit) {
-        Optional<Room> roomOptional = roomRepository.findByRoomName(roomName);
-
-        if (roomOptional.isPresent()) {
-            Room roomWithEditsFields = objectMapper.convertValue(roomFieldsToEdit, Room.class);
-            Room roomEdits = roomOptional.get();
-            try {
-                myBeanUntil.copyProperties(roomEdits, roomFieldsToEdit);
-                roomRepository.save(roomEdits);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-            return true;
-        } else {
-
-
-        }
-    }*/
-
+    @Override
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
     }
 
-    private boolean roomIsPresent(String name) {
-        return roomRepository.findByRoomName(name).isPresent();
-    }
+
+
+
 
 }

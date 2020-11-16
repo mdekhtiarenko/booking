@@ -2,16 +2,13 @@ package com.berezanskyi.booking.controlers;
 
 import com.berezanskyi.booking.converter.RoomConverter;
 import com.berezanskyi.booking.converter.RoomDtoConverter;
-import com.berezanskyi.booking.dtos.CreateRoomDto;
+import com.berezanskyi.booking.dtos.CreateUpdateRoomDto;
 import com.berezanskyi.booking.dtos.RoomDto;
-import com.berezanskyi.booking.entity.Room;
 import com.berezanskyi.booking.services.iml.DefaultRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/rooms")
@@ -27,29 +24,25 @@ public class RoomController {
     private RoomDtoConverter roomDtoConverter;
 
 
-
     @PostMapping
-    public boolean createRoom(@RequestBody CreateRoomDto createRoomDto){
-        return defaultRoomService.createRoom(roomConverter.convert(createRoomDto));
+    public void createRoom(@RequestBody CreateUpdateRoomDto createUpdateRoomDto) {
+        defaultRoomService.createRoom(roomConverter.convert(createUpdateRoomDto));
     }
 
-/*    @PatchMapping("/{room_name}")
-    public boolean editRoom(@PathVariable String room_name, @RequestBody Map<String, String> roomFieldsToEdit)  {
-        return defaultRoomService.editRoom(room_name, roomFieldsToEdit);
-    }*/
+    @PatchMapping("/{roomName}")
+    public void editRoom(@PathVariable String roomName, @RequestBody CreateUpdateRoomDto createUpdateRoomDto) {
+        defaultRoomService.editRoom(roomName, roomConverter.convert(createUpdateRoomDto));
+    }
 
-    @DeleteMapping("/{room_name}")
-    public boolean deleteRoomByRoomName(@PathVariable String room_name) {
-        return defaultRoomService.deleteRoomByRoomName(room_name);
+    @DeleteMapping("/{roomName}")
+    public void deleteRoomByRoomName(@PathVariable String roomName) {
+        defaultRoomService.deleteRoomByName(roomName);
     }
 
     @GetMapping
-    public List<RoomDto> getAllUsers() {
+    public List<RoomDto> getAllRooms() {
         return roomDtoConverter.convertAll(defaultRoomService.getAllRooms());
     }
 
-    @GetMapping("/{name}")
-    public Optional<Room> getUserByName(@PathVariable String name) {
-        return defaultRoomService.findRoomByRoomName(name);
-    }
+
 }

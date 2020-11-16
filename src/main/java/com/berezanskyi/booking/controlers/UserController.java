@@ -26,10 +26,9 @@ public class UserController {
 
 
     @PostMapping
-    public void createUser(@RequestBody CreateUpdateUserDto createUpdateUserDto) throws IllegalAccessException {
+    public void createUser(@RequestBody CreateUpdateUserDto createUpdateUserDto) {
         defaultUserService.createUser(userConverter.convert(createUpdateUserDto));
     }
-
 
     @PutMapping("/{login}")
     public void editUser(@PathVariable String login, @RequestBody CreateUpdateUserDto createUpdateUserDto) {
@@ -37,8 +36,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{login}")
-    public  void deleteUserByLogin(@PathVariable String login) {
-         defaultUserService.deleteUserByLogin(login);
+    public void deleteUserByLogin(@PathVariable String login) {
+        defaultUserService.deleteUserByLogin(login);
     }
 
     @GetMapping

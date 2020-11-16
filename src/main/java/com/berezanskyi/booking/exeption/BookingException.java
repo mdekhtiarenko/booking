@@ -3,10 +3,10 @@ package com.berezanskyi.booking.exeption;
 import org.springframework.http.HttpStatus;
 
 
-public class MyException extends RuntimeException {
+public class BookingException extends RuntimeException {
     private HttpStatus status;
 
-    public MyException(String message, HttpStatus status){
+    public BookingException(String message, HttpStatus status){
         super(message);
         this.status = status;
     }
