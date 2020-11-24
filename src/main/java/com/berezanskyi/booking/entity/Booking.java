@@ -30,7 +30,7 @@ public class Booking {
     private Calendar startDateTime;
 
     @Column(nullable = false)
-    private Calendar stopDateTime;
+    private Calendar endDateTime;
 
 
 

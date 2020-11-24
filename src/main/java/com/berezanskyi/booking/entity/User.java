@@ -1,6 +1,5 @@
 package com.berezanskyi.booking.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,9 +34,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
-
-
-
 
 }
 

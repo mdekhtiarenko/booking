@@ -18,7 +18,6 @@ public class DefaultRoomService implements RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-
     @Override
     public void createRoom(Room room)  {
         if (findRoomByName(room.getRoomName()).isPresent()){
@@ -53,9 +52,6 @@ public class DefaultRoomService implements RoomService {
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
     }
-
-
-
 
 
 }
