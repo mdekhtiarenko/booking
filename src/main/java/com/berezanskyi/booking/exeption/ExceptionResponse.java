@@ -10,7 +10,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public class ExceptionResponse {
     private String message;
-    private HttpStatus status;
+    private HttpStatus status; // не знаю чи є якийсь зміст дублювати респонс код в меседжу, бо він у тебе і так буде,
+    // але в цілому exception handling зроблений добре
 
 
 }

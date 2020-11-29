@@ -29,7 +29,7 @@ public class RoomController {
         defaultRoomService.createRoom(roomConverter.convert(createUpdateRoomDto));
     }
 
-    @PatchMapping("/{roomName}")
+    @PatchMapping("/{roomName}") //  це вже не Patch a Put бо ти оновлюєш всі поля
     public void editRoom(@PathVariable String roomName, @RequestBody CreateUpdateRoomDto createUpdateRoomDto) {
         defaultRoomService.editRoom(roomName, roomConverter.convert(createUpdateRoomDto));
     }

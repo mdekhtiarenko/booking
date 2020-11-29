@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class CreateUpdateRoomDto {
     private String roomName;
     private String location_description;
-    private Integer number_of_seats;
+    private Integer number_of_seats;// camel case
     private Boolean projector;
     private String phone_number;
 }
